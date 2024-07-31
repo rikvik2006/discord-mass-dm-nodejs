@@ -1,9 +1,6 @@
 import dotenv from "dotenv";
 import {
 	Client,
-	RichPresence,
-	CustomStatus,
-	SpotifyRPC,
 } from "discord.js-selfbot-v13";
 
 dotenv.config();
