@@ -1,26 +1,25 @@
 {
-    "type": "module",
-    "name": "discord-mass-dm-nodejs",
-    "version": "1.0.0",
-    "description": "",
-    "main": "index.js",
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
-        "build": "tsc",
-        "start": "node dist/index.js",
-        "dev": "nodemon ./src/index.ts"
-    },
-    "keywords": [],
-    "author": "",
-    "license": "ISC",
-    "devDependencies": {
-        "@types/node": "^22.0.0",
-        "nodemon": "^3.1.4",
-        "ts-node": "^10.9.2",
-        "typescript": "^5.5.4"
-    },
-    "dependencies": {
-        "discord.js-selfbot-v13": "^3.3.0",
-        "dotenv": "^16.4.5"
-    }
+	"name": "discord-mass-dm-nodejs",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"build": "tsc",
+		"start": "node dist/index.js",
+		"dev": "nodemon ./src/index.ts"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"devDependencies": {
+		"@types/node": "^22.0.0",
+		"nodemon": "^3.1.4",
+		"ts-node": "^10.9.2",
+		"typescript": "^5.5.4"
+	},
+	"dependencies": {
+		"discord.js-selfbot-v13": "^3.3.0",
+		"dotenv": "^16.4.5"
+	}
 }
