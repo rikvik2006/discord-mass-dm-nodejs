@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@discordjs/collection':
+        specifier: ^2.1.0
+        version: 2.1.0
       dotenv:
         specifier: ^16.4.5
         version: 16.4.5
@@ -32,6 +35,9 @@ importers:
       puppeteer-extra-plugin-stealth:
         specifier: ^2.11.2
         version: 2.11.2(puppeteer-extra@3.3.6(puppeteer-core@23.1.0)(puppeteer@23.1.0(typescript@5.5.4)))
+      zod:
+        specifier: ^3.23.8
+        version: 3.23.8
     devDependencies:
       '@eslint/js':
         specifier: ^9.9.0
@@ -75,6 +81,10 @@ packages:
   '@cspotcode/source-map-support@0.8.1':
     resolution: {integrity: sha512-IchNf6dN4tHoMFIn/7OE8LWZ19Y6q/67Bmf6vnGREv8RSbBVb9LPJxEcnwrcwX6ixSvaiGoomAUvu4YSxXrVgw==}
     engines: {node: '>=12'}
+
+  '@discordjs/collection@2.1.0':
+    resolution: {integrity: sha512-mLcTACtXUuVgutoznkh6hS3UFqYirDYAg5Dc1m8xn6OvPjetnUlf/xjtqnnc47OwWdaoCQnHmHh9KofhD6uRqw==}
+    engines: {node: '>=18'}
 
   '@eslint-community/eslint-utils@4.4.0':
     resolution: {integrity: sha512-1/sA4dwrzBAyeUoQ6oxahHKmrZvsnLCg4RfxW3ZFGGmQkSNQPFNLV9CUEFQP1x9EYXHTo5p6xdhZM1Ne9p/AfA==}
@@ -1263,6 +1273,8 @@ snapshots:
   '@cspotcode/source-map-support@0.8.1':
     dependencies:
       '@jridgewell/trace-mapping': 0.3.9
+
+  '@discordjs/collection@2.1.0': {}
 
   '@eslint-community/eslint-utils@4.4.0(eslint@9.9.0)':
     dependencies:
