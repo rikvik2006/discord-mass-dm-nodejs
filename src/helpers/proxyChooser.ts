@@ -80,13 +80,17 @@ class Proxy implements ProxyI {
 
             const parts = parsedProxyString.split(":");
             if (parts.length === 4) {
-                const [ip, port, username, password] = parsedProxyString;
+                const [ip, port, username, password] = parts;
                 this.ip = ip;
                 this.port = port;
                 this.auth = {
                     username: username,
                     password: password
                 }
+            } else {
+                const [ip, port] = parsedProxyString;
+                this.ip = ip;
+                this.port = port;
             }
         } catch (err) {
             throw new Error(`${stringProxy} is invalid: ${(err as z.ZodError).errors.map(err => err.message).join(', ')}`)
@@ -145,6 +149,8 @@ export class ProxyChooser {
             existInCache = this.proxyCache.some((proxy) => proxy === randomProxy)
         }
 
+        this.setProxyInCache(token, randomProxy);
+        // console.log(this.proxyCache);
         return randomProxy;
     }
 
@@ -174,8 +180,16 @@ export class ProxyChooser {
     // }
 }
 
+// Testing
+// const proxyChooser = new ProxyChooser();
+// const token1 = "qwert";
+// const token2 = "12341234";
 
-const proxyChooser = new ProxyChooser();
+// const proxy: Proxy = proxyChooser.getProxy("qwert");
+// console.log(`Key: ${token1} Proxy: ${JSON.stringify(proxy, null, 4)}\n\n`);
 
-const proxy: Proxy = proxyChooser.getProxy("qwert");
-console.log(proxy);
+// const proxy2 = proxyChooser.getProxy("12341234");
+// console.log(`Key: ${token2} Proxy: ${JSON.stringify(proxy2, null, 4)}\n\n`);
+
+// const proxy3 = proxyChooser.getProxy(token1);
+// console.log(`Key: ${token1} Proxy: ${JSON.stringify(proxy3, null, 4)}\n\n`);
