@@ -88,7 +88,7 @@ class Proxy implements ProxyI {
                     password: password
                 }
             } else {
-                const [ip, port] = parsedProxyString;
+                const [ip, port] = parts;
                 this.ip = ip;
                 this.port = port;
             }
@@ -141,9 +141,12 @@ export class ProxyChooser {
         if (proxy) return proxy;
 
         let existInCache = true;
+
+        // We set a value for this variabile or typescript will give an error saying that the variabile is used before assegnation
         let randomProxy: Proxy = new Proxy("0.0.0.0:1111:a:b");
         while (existInCache) {
             const randomStringProxy = this.proxyes[Math.floor(Math.random() * this.proxyes.length)];
+            console.log(randomStringProxy)
             // const randomProxy = this.fromStringProxyToProxyObject(randomStringProxy)
             randomProxy = new Proxy(randomStringProxy);
             existInCache = this.proxyCache.some((proxy) => proxy === randomProxy)
@@ -181,7 +184,7 @@ export class ProxyChooser {
 }
 
 // Testing
-// const proxyChooser = new ProxyChooser();
+// const proxyChooser = new ProxyChooser(path.join(__dirname, "..", "..", "data", "test.txt"));
 // const token1 = "qwert";
 // const token2 = "12341234";
 
