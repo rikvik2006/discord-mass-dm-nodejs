@@ -216,24 +216,63 @@ export class ProxyChooser {
         this.proxyCache.set(token, proxy);
     }
 
-    loadCache(): void {}
+    loadCache(): void {
+        this.handleCacheFile();
 
-    saveCahche(): void {}
+        const fileData = this.cacheFileContoller<string>(() => {
+            return fs.readFileSync(this.cachePath, { encoding: "utf8" });
+        });
+        // Collection<string, Proxy>
+        const proxyCacheObject = JSON.parse(fileData);
+        console.log(proxyCacheObject);
+        // TODO: Il tipo di proxyCacheArray è any, mentre dobbiamo darli il tipo Collection<string, Proxy> ma dobbiamo verificare che sia effettivamente quello
+    }
 
-    clearCache(): void {}
+    saveCache(): void {
+        this.handleCacheFile();
 
-    private cacheFileController(action: "read" | "write"): void {
-        const data = fs.openSync(this.cachePath);
+        const cacheJson = JSON.stringify(this.proxyCache.toJSON(), null, 4);
+        this.cacheFileContoller(() => {
+            fs.writeFileSync(this.cachePath, cacheJson, "utf8");
+        });
+    }
+
+    clearCache(): void {
+        this.handleCacheFile();
+
+        this.cacheFileContoller(() => {
+            fs.writeFileSync(this.cachePath, "[]", "utf8");
+        });
+    }
+
+    private handleCacheFile(): void {
+        if (fs.existsSync(this.cachePath)) return;
+
+        fs.writeFileSync(this.cachePath, "[]", { flag: "w" });
+    }
+
+    private cacheFileContoller<T>(fileAction: () => T): T {
+        try {
+            return fileAction();
+        } catch (err) {
+            console.log(
+                `❌ There was an error while saving the cache to file: ${this.cachePath}`
+            );
+            throw err;
+        }
     }
 }
 
 // Testing
-// const proxyChooser = new ProxyChooser(path.join(__dirname, "..", "..", "data", "test.txt"));
-// const token1 = "qwert";
+const proxyChooser = new ProxyChooser();
+const token1 = "qwert";
 // const token2 = "12341234";
 
-// const proxy: Proxy = proxyChooser.getProxy("qwert");
-// console.log(`Key: ${token1} Proxy: ${JSON.stringify(proxy, null, 4)}\n\n`);
+const proxy: Proxy = proxyChooser.getProxy("qwert");
+console.log(`Key: ${token1} Proxy: ${JSON.stringify(proxy, null, 4)}\n\n`);
+
+// proxyChooser.saveCache();
+proxyChooser.loadCache();
 
 // const proxy2 = proxyChooser.getProxy("12341234");
 // console.log(`Key: ${token2} Proxy: ${JSON.stringify(proxy2, null, 4)}\n\n`);
