@@ -43,7 +43,7 @@ class Proxy implements ProxyI {
             );
 
         // Definizione dello schema per username e password
-        const userInfoSchema = z.string().nonempty();
+        const userInfoSchema = z.string().min(1);
 
         // Definizione dello schema per il formato ip:port
         const ipPortSchema = z.object({
@@ -122,6 +122,18 @@ class Proxy implements ProxyI {
             this.auth ? `${this.auth.username}:${this.auth.password}` : ""
         }`;
     }
+}
+
+// Type guard function to check if an object is of type ProxyI
+function isProxyI(obj: any): obj is ProxyI {
+    return (
+        typeof obj === "object" &&
+        typeof obj.ip === "string" &&
+        typeof obj.port === "string" &&
+        (obj.auth === undefined ||
+            (typeof obj.auth.username === "string" &&
+                typeof obj.auth.password === "string"))
+    );
 }
 
 export class ProxyChooser {
